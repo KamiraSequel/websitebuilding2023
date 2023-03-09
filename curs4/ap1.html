@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <button id="btn">Get Data</button>
+    <p id="p"></p>
+
+    <div id="loader" class="lds-dual-ring hidden overlay"></div>
+   
+    <script>
+        console.clear();
+        // https://jsonplaceholder.typicode.com/guide/
+        // https://jsonplaceholder.typicode.com/users
+        // fake api data 'https://jsonplaceholder.typicode.com/posts/'
+        const btn = document.getElementById('btn');
+        const p = document.getElementById('p');
+
+        btn.addEventListener('click', getData);
+        function getData() {
+            document.getElementById('loader').classList.remove('hidden');
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', 'https://api.coindesk.com/v1/bpi/currentprice.json', true);
+            xhr.onload = function () {
+                if (this.status == 200) {
+                    const data = JSON.parse(this.responseText)
+                    console.table(data);
+                                        {
+                        p.innerHTML += `
+                            <ul>
+    <li>ID: ${data.chartName}</li>
+    <li>name: ${data.time.updated}}</li>
+    <li>username: ${data.bpi.USD.rate}</li>
+    <li>street: ${data.bpi.EUR.rate} </li>         
+    </ul>
+    `
+                    }
+            
+
+                }
+            }
+            xhr.onerror = function () {
+                const error = `404: Not Found`
+                console.log(error);
+                p.innerHTML = error;
+            }
+            xhr.send();
+        }
+    </script>
+
+</body>
+
+</html>

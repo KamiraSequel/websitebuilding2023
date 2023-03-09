@@ -23,10 +23,21 @@ document.addEventListener("scroll", () => {
   }),
   $("#modalForm").on("show.bs.modal", function (t) {
     var e = $(t.relatedTarget);
+    const o = e.data("name"),
+      a = e.data("price"),
+      d = e.data("description");
+    $(".modal-header #titleModalLabel").html(o),
+      $(".modal-body #price").html(a),
+      $(".modal-body #description").html(d),
+      (id = e.attr("id")),
+      alert(JSON.stringify(e));
+  }),
+  $("#modalForm").on("show.bs.modal", function (t) {
+    var e = $(t.relatedTarget);
     const o = e.data("email"),
-      n = e.data("nume");
+      a = e.data("nume");
     $(".modal-body #email").val(o),
-      $(".modal-body #name").val(n),
+      $(".modal-body #name").val(a),
       (id = e.attr("id")),
       alert(JSON.stringify(e[0]));
   }),
