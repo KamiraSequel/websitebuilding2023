@@ -13,6 +13,22 @@ const scrollBtn = document.querySelector(".gototop"),
       : (scrollBtn.style.visibility = "hidden");
   };
 var id;
+function includeHTML() {
+  var t, e, o, n, i;
+  for (t = document.getElementsByTagName("*"), e = 0; e < t.length; e++)
+    if ((n = (o = t[e]).getAttribute("w3-include-html")))
+      return (
+        ((i = new XMLHttpRequest()).onreadystatechange = function () {
+          4 == this.readyState &&
+            (200 == this.status && (o.innerHTML = this.responseText),
+            404 == this.status && (o.innerHTML = "Page not found."),
+            o.removeAttribute("w3-include-html"),
+            includeHTML());
+        }),
+        i.open("GET", n, !0),
+        void i.send()
+      );
+}
 document.addEventListener("scroll", () => {
   window.scrollY > 400
     ? (scrollBtn.style.visibility = "visible")
@@ -24,20 +40,21 @@ document.addEventListener("scroll", () => {
   $("#modalForm").on("show.bs.modal", function (t) {
     var e = $(t.relatedTarget);
     const o = e.data("name"),
-      a = e.data("price"),
-      d = e.data("description");
+      n = e.data("price"),
+      i = e.data("description");
     $(".modal-header #titleModalLabel").html(o),
-      $(".modal-body #price").html(a),
-      $(".modal-body #description").html(d),
+      $(".modal-body #price").html(n),
+      $(".modal-body #description").html(i),
       (id = e.attr("id")),
       alert(JSON.stringify(e));
   }),
+  includeHTML(),
   $("#modalForm").on("show.bs.modal", function (t) {
     var e = $(t.relatedTarget);
     const o = e.data("email"),
-      a = e.data("nume");
+      n = e.data("nume");
     $(".modal-body #email").val(o),
-      $(".modal-body #name").val(a),
+      $(".modal-body #name").val(n),
       (id = e.attr("id")),
       alert(JSON.stringify(e[0]));
   }),
